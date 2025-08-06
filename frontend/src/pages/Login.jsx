@@ -49,8 +49,8 @@ const Login = () => {
               onClick={handleSubmit}>
               <span>LOGIN</span>
             </button>
-            {/* Uncomment the following line if you want to add a "Forgot Password?" link
-            <a href="#" className="text-lg text-blue-500 hover:underline">Forgot Password?</a>*/}
+
+            <a href="#" className="text-lg text-blue-500 hover:underline">Forgot Password?</a>
           </form>
         </div>
 
