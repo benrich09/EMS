@@ -11,10 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
-<<<<<<< HEAD
-=======
     "axios": "^1.11.0",
->>>>>>> 64a0e5837b1cc3006bfae591dc2cf486f5fea605
     "bcrypt": "^6.0.0",
     "lucide-react": "^0.536.0",
     "react": "^19.1.0",
