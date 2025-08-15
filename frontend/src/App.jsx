@@ -6,8 +6,8 @@ import AdminDashboard from './pages/AdminPages/AdminDashboard.jsx';
 const App = () => {
   return (
     <div>
-      <Login />
-        {/*<AdminDashboard />*/}
+      {/*<Login />*/}
+        <AdminDashboard />
     </div>
 
   )

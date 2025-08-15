@@ -41,7 +41,7 @@ const Login = () => {
               Employee Management System
             </h3>
 
-            <h3 className="text-2xl font-bold text-lg mb-4">LOGIN</h3>
+            <h3 className="text-2xl-lg font-bold mb-4">LOGIN</h3>
 
             <div className="space-y-4 text-left">
               <label htmlFor="email" className="block text-sm font-medium">Email</label>
