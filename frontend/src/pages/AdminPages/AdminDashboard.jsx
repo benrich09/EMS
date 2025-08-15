@@ -3,7 +3,7 @@ import { UserRound, Building, Banknote } from 'lucide-react';
 
 function AdminDashboard() {
   return (
-    <div className="container-custom py-12">
+    <div className="container-custom py-12 px-12">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-0">
           Administrator Dashboard
