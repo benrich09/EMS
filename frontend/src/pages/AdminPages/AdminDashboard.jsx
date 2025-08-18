@@ -44,7 +44,7 @@ function AdminDashboard() {
 
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 grid grid-cols-2">
           <div className="bg-primary-100 placeholder-blue-200 rounded-full mr-4">
-            <Check size={90} color="white" weight="fill" />
+            <Check size={90} color="#00FF00" weight="fill" />
           </div>
           <h1 className='text-lg font-semibold text-gray-900 px-2 py-7'>Leaves applied</h1>
         </div>
