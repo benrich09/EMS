@@ -1,5 +1,5 @@
 import React from 'react'
-import { UserRound, Building, Banknote } from 'lucide-react';
+import { UserRound, Building, Banknote, Check } from 'lucide-react';
 
 function AdminDashboard() {
   return (
@@ -11,7 +11,7 @@ function AdminDashboard() {
       </div>
       {/* Stats*/}
       {/** total employees */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-10">
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
           <div className="flex items-center mb-4">
             <div className="bg-primary-100 p-3 rounded-full mr-4">
@@ -35,6 +35,29 @@ function AdminDashboard() {
           </div>
           <p className="text-3xl font-bold text-gray-900">{/*{stats.monthlyPay}*/}</p>
         </div>
+      </div><div className='flex justify-center'>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          Leave Details
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 gap-6 mb-10">
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 grid grid-cols-2">
+          <div className="bg-primary-100 placeholder-blue-200 rounded-full mr-4">
+            <Check size={90} color="white" weight="fill" />
+          </div>
+          <h1 className='text-lg font-semibold text-gray-900 px-2 py-7'>Leaves applied</h1>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h2 className='text-lg font-semibold text-gray-900'>leaves approved</h2>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h2 className='text-lg font-semibold text-gray-900'>leaves pending</h2>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h2 className='text-lg font-semibold text-gray-900'>leaves rejected</h2>
+        </div>
+
       </div>
     </div>
   )
