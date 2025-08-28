@@ -1,93 +1,60 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+export default function Login() {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  axios.post('http://localhost:5000/api/login', { email, password })
-      .then(res => {
-        localStorage.setItem('token', res.data.token);
-      });
-  axios.get('http://localhost:5000/api/dashboard', {
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-  });
-
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3000/api/login', {
-        email,
-        username,
-        password,
-      });
-      console.log('Login successful:', response.data);
-    } catch (error) {
-      console.error('Login failed:', error);
+    // Mock login logic; replace with API call (e.g., /api/login)
+    if (email === 'admin@example.com') {
+      navigate('/admin');
+    } else {
+      navigate('/dashboard');
     }
   };
 
   return (
-      <div className="min-h-screen bg-cover bg-center flex items-center justify-center"
-           style={{ backgroundImage: "url('./src/assets/background.jpg')" }}>
-        <div className="w-full max-w-xl">
-          <form
-              onSubmit={handleSubmit}
-              className="backdrop-blur-xl space-y-6 border border-black/10 p-10 rounded-xl text-white text-center shadow-lg"
-          >
-            <h3 className="text-2xl font-bold mb-4 drop-shadow text-white">
-              Employee Management System
-            </h3>
-
-            <h3 className="text-2xl-lg font-bold mb-4">LOGIN</h3>
-
-            <div className="space-y-4 text-left">
-              <label htmlFor="email" className="block text-sm font-medium">Email</label>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+          <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Email</label>
               <input
-                  id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                  className="w-full backdrop-blur-2xl border border-white/10 p-2 rounded-lg text-amber-50 shadow-lg"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
               />
-
-              <label htmlFor="username" className="block text-sm font-medium">Username</label>
+            </div>
+            <div className="mb-6">
+              <label className="block text-gray-700 mb-2">Password</label>
               <input
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Username"
-                  className="w-full backdrop-blur-2xl border border-white/10 p-2 rounded-lg text-amber-50 shadow-lg"
-              />
-
-              <label htmlFor="password" className="block text-sm font-medium">Password</label>
-              <input
-                  id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  className="w-full backdrop-blur-2xl border border-white/10 p-2 rounded-xl text-white shadow-lg"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
               />
             </div>
-
             <button
                 type="submit"
-                className="bg-green-700 px-4 py-2 rounded-lg hover:bg-emerald-950 hover:text-white transition-colors duration-300 shadow-lg mx-auto"
+                className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
             >
-              LOGIN
+              Login
             </button>
-
-            <div className="mt-4">
-              <a href="#" className="text-lg text-blue-500 hover:underline">Forgot Password?</a>
-            </div>
           </form>
+          <p className="mt-4 text-center">
+            Don't have an account?{' '}
+            <Link to="/register" className="text-blue-500 hover:underline">
+              Register
+            </Link>
+          </p>
         </div>
       </div>
   );
-};
-
-export default Login;
+}
