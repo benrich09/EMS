@@ -11,7 +11,7 @@ export default function TasksPage() {
             <h1 className="text-3xl font-bold mb-8">Tasks</h1>
             <ul className="space-y-4">
                 {tasks.map(task => (
-                    <li key={task.id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex justify-between">
+                    <li key={task.id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex justify-between w-full max-w-md">
                         <div>
                             <h3 className="font-semibold">{task.title}</h3>
                             <p className="text-sm text-gray-600">Due: {task.due}</p>

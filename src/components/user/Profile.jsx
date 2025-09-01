@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Profile() {
+
     const [profile, setProfile] = useState({
         name: 'John Doe',
         email: 'john.doe@example.com',
