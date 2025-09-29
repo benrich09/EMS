@@ -1,5 +1,7 @@
+// components/Admin/Employees.jsx (enhanced, added sorting, search, modal animations)
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Search, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, X, AlertCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Employees() {
     const [employees, setEmployees] = useState([]);
@@ -81,10 +83,8 @@ export default function Employees() {
         }
 
         if (formData.id) {
-            // Edit
             setEmployees(employees.map(emp => emp.id === formData.id ? { ...formData } : emp));
         } else {
-            // Add
             setEmployees([...employees, { ...formData, id: Date.now() }]);
         }
         closeModal();
@@ -120,12 +120,16 @@ export default function Employees() {
     }
 
     return (
-        <div className="container mx-auto py-12 px-4">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="container mx-auto py-12 px-4"
+        >
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Employees</h1>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center shadow-md hover:shadow-lg transition"
                 >
                     <Plus className="h-5 w-5 mr-2" /> Add Employee
                 </button>
@@ -139,53 +143,58 @@ export default function Employees() {
                         placeholder="Search by name or email..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full p-2 pl-10 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                        className="w-full p-2 pl-10 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500"
                     />
                     <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                 </div>
             </div>
 
             {/* Employees Table */}
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg">
-                    <thead>
+            <div className="overflow-x-auto rounded-lg shadow-md">
+                <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-50 dark:bg-gray-700">
                     <tr>
                         <th
-                            className="py-3 px-4 border-b text-left text-gray-900 dark:text-white cursor-pointer"
+                            className="py-3 px-4 text-left text-gray-900 dark:text-white cursor-pointer"
                             onClick={() => requestSort('name')}
                         >
                             Name{getSortIcon('name')}
                         </th>
-                        <th className="py-3 px-4 border-b text-left text-gray-900 dark:text-white">Email</th>
-                        <th className="py-3 px-4 border-b text-left text-gray-900 dark:text-white">Position</th>
-                        <th className="py-3 px-4 border-b text-left text-gray-900 dark:text-white">Department</th>
+                        <th className="py-3 px-4 text-left text-gray-900 dark:text-white">Email</th>
+                        <th className="py-3 px-4 text-left text-gray-900 dark:text-white">Position</th>
+                        <th className="py-3 px-4 text-left text-gray-900 dark:text-white">Department</th>
                         <th
-                            className="py-3 px-4 border-b text-left text-gray-900 dark:text-white cursor-pointer"
+                            className="py-3 px-4 text-left text-gray-900 dark:text-white cursor-pointer"
                             onClick={() => requestSort('salary')}
                         >
                             Salary{getSortIcon('salary')}
                         </th>
                         <th
-                            className="py-3 px-4 border-b text-left text-gray-900 dark:text-white cursor-pointer"
+                            className="py-3 px-4 text-left text-gray-900 dark:text-white cursor-pointer"
                             onClick={() => requestSort('hireDate')}
                         >
                             Hire Date{getSortIcon('hireDate')}
                         </th>
-                        <th className="py-3 px-4 border-b text-left text-gray-900 dark:text-white">Actions</th>
+                        <th className="py-3 px-4 text-left text-gray-900 dark:text-white">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {filteredEmployees.map((emp) => (
-                        <tr key={emp.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td className="py-3 px-4 border-b text-gray-700 dark:text-gray-300">{emp.name}</td>
-                            <td className="py-3 px-4 border-b text-gray-700 dark:text-gray-300">{emp.email}</td>
-                            <td className="py-3 px-4 border-b text-gray-700 dark:text-gray-300">{emp.position}</td>
-                            <td className="py-3 px-4 border-b text-gray-700 dark:text-gray-300">{emp.department}</td>
-                            <td className="py-3 px-4 border-b text-gray-700 dark:text-gray-300">${Number(emp.salary).toLocaleString()}</td>
-                            <td className="py-3 px-4 border-b text-gray-700 dark:text-gray-300">
+                        <motion.tr
+                            key={emp.id}
+                            className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                        >
+                            <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{emp.name}</td>
+                            <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{emp.email}</td>
+                            <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{emp.position}</td>
+                            <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{emp.department}</td>
+                            <td className="py-3 px-4 text-gray-700 dark:text-gray-300">${Number(emp.salary).toLocaleString()}</td>
+                            <td className="py-3 px-4 text-gray-700 dark:text-gray-300">
                                 {new Date(emp.hireDate).toLocaleDateString()}
                             </td>
-                            <td className="py-3 px-4 border-b">
+                            <td className="py-3 px-4">
                                 <button onClick={() => handleEdit(emp)} className="text-blue-600 hover:text-blue-800 mr-3">
                                     <Edit className="h-5 w-5" />
                                 </button>
@@ -193,7 +202,7 @@ export default function Employees() {
                                     <Trash2 className="h-5 w-5" />
                                 </button>
                             </td>
-                        </tr>
+                        </motion.tr>
                     ))}
                     {filteredEmployees.length === 0 && (
                         <tr>
@@ -208,8 +217,16 @@ export default function Employees() {
 
             {/* Modal for Add/Edit */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                >
+                    <motion.div
+                        initial={{ scale: 0.95 }}
+                        animate={{ scale: 1 }}
+                        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full mx-4"
+                    >
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                                 {formData.id ? 'Edit Employee' : 'Add Employee'}
@@ -224,26 +241,26 @@ export default function Employees() {
                                 placeholder="Name"
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                             />
                             <input
                                 type="email"
                                 placeholder="Email"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                             />
                             <input
                                 type="text"
                                 placeholder="Position"
                                 value={formData.position}
                                 onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                             />
                             <select
                                 value={formData.department}
                                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                             >
                                 <option value="">Select Department</option>
                                 {departments.map((dept) => (
@@ -255,33 +272,33 @@ export default function Employees() {
                                 placeholder="Salary"
                                 value={formData.salary}
                                 onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
-                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                             />
                             <input
                                 type="date"
                                 placeholder="Hire Date"
                                 value={formData.hireDate}
                                 onChange={(e) => setFormData({ ...formData, hireDate: e.target.value })}
-                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="p-2 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                             />
                         </div>
                         <div className="mt-6 flex justify-end space-x-3">
                             <button
                                 onClick={closeModal}
-                                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+                                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 shadow-md"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleAddOrEdit}
-                                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow-md"
                             >
                                 Save
                             </button>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             )}
-        </div>
+        </motion.div>
     );
 }
