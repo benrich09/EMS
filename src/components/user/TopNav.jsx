@@ -1,37 +1,24 @@
 import React from 'react';
-import { Menu, X as CloseIcon, Bell, Moon, Sun } from 'lucide-react';
+import { LogOut } from 'lucide-react';
+import {useNavigate} from "react-router-dom";
 
-const TopNav = ({ isSidebarOpen, toggleSidebar, toggleTheme, isDarkMode }) => {
+export default function TopNav() {
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        alert('Logged out!');
+        navigate('/login')// Replace with actual logic
+    };
+
     return (
-        <nav className="fixed top-0 left-0 right-0 h-16 bg-black dark:bg-gray-800 text-white flex items-center justify-between px-4 sm:px-6 lg:px-8 shadow-md z-40">
-            <div className="flex items-center space-x-4">
-                <button
-                    className="text-white"
-                    onClick={toggleSidebar}
-                    aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
-                >
-                    {isSidebarOpen ? <CloseIcon className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </button>
-                <div className="text-lg sm:text-xl font-bold">Employee Management System</div>
-            </div>
-            <div className="flex items-center space-x-4 sm:space-x-6">
-                <button
-                    onClick={toggleTheme}
-                    className="hover:text-gray-300 transition"
-                    title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-                    aria-label={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-                >
-                    {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                </button>
-                <button
-                    className="hover:text-gray-300 transition"
-                    aria-label="Notifications"
-                >
-                    <Bell className="w-5 h-5" />
-                </button>
-            </div>
+        <nav className="bg-white dark:bg-gray-800 shadow-lg p-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Hi, User</h1>
+            <button
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+            >
+                <LogOut className="h-5 w-5 mr-2" />
+                Logout
+            </button>
         </nav>
     );
-};
-
-export default TopNav;
+}

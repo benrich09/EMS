@@ -1,8 +1,8 @@
-// components/user/UserHome.jsx (extracted from original UserDashboard, enhanced)
 import React, { useState, useEffect } from 'react';
 import { UserRound, Calendar, Briefcase, Users, Clock, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+{/*This is the function that used to call cards in the main content */}
 function StatCard({ icon: Icon, title, value, color = 'blue' }) {
     const colorClasses = {
         blue: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
@@ -11,6 +11,7 @@ function StatCard({ icon: Icon, title, value, color = 'blue' }) {
         orange: 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
     };
 
+    {/*This is the return of the cards*/}
     return (
         <motion.div
             className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-200"
@@ -27,6 +28,7 @@ function StatCard({ icon: Icon, title, value, color = 'blue' }) {
     );
 }
 
+{/*This is the function used to call all the activities in the main body*/}
 function ActivityTable({ activities }) {
     return (
         <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 mt-8 overflow-x-auto">
@@ -60,10 +62,12 @@ function ActivityTable({ activities }) {
 }
 
 export default function UserHome() {
+
+    {/*This is the declaration of variable of the cards in the main content*/}
     const [userStats, setUserStats] = useState({
         leavesTaken: 5,
         leavesRemaining: 15,
-        nextPayDate: 'September 15, 2025',
+        nextPayDate: 'October 15, 2025',
         totalHoursWorked: 160,
         pendingTasks: 3,
         teamMembers: 12,
@@ -75,7 +79,7 @@ export default function UserHome() {
             const data = {
                 leavesTaken: 5,
                 leavesRemaining: 15,
-                nextPayDate: 'September 15, 2025',
+                nextPayDate: 'October 15, 2025',
                 totalHoursWorked: 160,
                 pendingTasks: 3,
                 teamMembers: 12,
@@ -83,6 +87,7 @@ export default function UserHome() {
             setUserStats(data);
         };
 
+        {/*This is activity declared variable*/}
         const fetchActivities = async () => {
             const data = [
                 { date: '2025-08-30', action: 'Leave Approved', details: 'Vacation leave from 2025-09-01 to 2025-09-03' },
@@ -97,8 +102,14 @@ export default function UserHome() {
     }, []);
 
     return (
+        //This is the motion div for the Management system
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-            <h1 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 dark:text-white">Dashboard</h1>
+
+            <h1 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+                Dashboard
+            </h1>
+
+            {/*To call cards from the function and the declared variable*/}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <StatCard icon={CheckCircle} title="Leaves Taken" value={userStats.leavesTaken} color="blue" />
                 <StatCard icon={CheckCircle} title="Leaves Remaining" value={userStats.leavesRemaining} color="green" />
@@ -107,7 +118,10 @@ export default function UserHome() {
                 <StatCard icon={Briefcase} title="Pending Tasks" value={userStats.pendingTasks} color="blue" />
                 <StatCard icon={Users} title="Team Members" value={userStats.teamMembers} color="green" />
             </div>
+
+            {/*This call function activity and declared variable*/}
             <ActivityTable activities={activities} />
+
             <div className="mt-8">
                 <button className="bg-blue-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg">
                     Request Leave

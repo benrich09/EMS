@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { UserRound, Mail, Lock, Bell, Save } from 'lucide-react';
+import { UserRound, Mail, Lock, Bell, Save, Settings as SettingsIcon } from 'lucide-react';
 
 export default function Settings() {
     const [userData, setUserData] = useState({
-        fullName: 'John Doe',
-        email: 'john.doe@company.com',
+        fullName: 'Ben Rich',
+        email: 'benrich@gmail.com',
         password: '',
         confirmPassword: '',
         notifications: true,
@@ -32,7 +32,7 @@ export default function Settings() {
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                <Settings className="w-6 h-6 mr-2 text-blue-500" />
+                <SettingsIcon className="w-6 h-6 mr-2 text-blue-500" />
                 Account Settings
             </h1>
 

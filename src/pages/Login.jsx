@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -8,18 +8,21 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Mock login logic; replace with API call (e.g., /api/login)
-    if (email === 'admin@example.com') {
+    if (email === 'admin@example.com' && password === 'admin') {
       navigate('/admin');
-    } else {
+    } else if (email === 'user@example.com' && password === 'user') {
       navigate('/dashboard');
+    }else {
+      alert('invalid details')
     }
   };
 
   return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 p-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-emerald-50 p-4">
         <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-500 hover:scale-105">
-          <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Welcome Back</h1>
+          <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Employees Management System
+          </h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label className="block text-gray-700 mb-2 text-sm font-medium">Email Address</label>
@@ -27,7 +30,7 @@ export default function Login() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 transition-all duration-300"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 transition-all duration-300"
                   placeholder="Enter your email"
                   required
               />
@@ -38,24 +41,18 @@ export default function Login() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 transition-all duration-300"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 transition-all duration-300"
                   placeholder="Enter your password"
                   required
               />
             </div>
             <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white p-3 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 font-semibold"
+                className="w-full bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white p-3 rounded-lg hover:from-indigo-600 hover:via-purple-700 hover:to-pink-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
             >
               Sign In
             </button>
           </form>
-          <p className="mt-6 text-center text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/register" className="text-blue-500 hover:text-blue-700 font-medium transition-colors duration-200">
-              Create Account
-            </Link>
-          </p>
         </div>
       </div>
   );

@@ -1,4 +1,3 @@
-// components/Admin/DashboardHome.jsx (extracted from original AdminDashboard)
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { UserRound, Building, Banknote, Check, LogOut, Clock } from 'lucide-react';

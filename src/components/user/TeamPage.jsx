@@ -1,4 +1,3 @@
-// components/user/TeamPage.jsx (added features: team list, search, details)
 import React, { useState, useEffect } from 'react';
 import { Users, Search, Mail, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -9,12 +8,16 @@ export default function TeamPage() {
     const [filteredMembers, setFilteredMembers] = useState([]);
 
     useEffect(() => {
-        // Mock data
+        // Sample data but it should fetch from the database
         const mockTeam = [
-            { id: 1, name: 'John Doe', role: 'Developer', email: 'john@example.com', phone: '123-456-7890' },
-            { id: 2, name: 'Jane Smith', role: 'Designer', email: 'jane@example.com', phone: '987-654-3210' },
-            // Add more
+            { id: 1, name: 'Ben Rich', role: 'Backend Developer', email: 'ben@example.com', phone: '255 634 343 566' },
+            { id: 2, name: 'Rich Ben', role: 'Data Analyst', email: 'rich@example.com', phone: '255 746 353 456' },
+            { id: 3, name: 'Ben Phil', role: 'Frontend Developer', email: 'benphil@example.com', phone: '255 746 353 456' },
+            { id: 4, name: 'Phil ben', role: 'Software Developer', email: 'philben@example.com', phone: '255 746 353 456' },
+            { id: 5, name: 'Rich Phil', role: 'System Admin', email: 'richphil@example.com', phone: '255 746 353 456' },
+            { id: 6, name: 'Phil Rich', role: 'Database Manager', email: 'philrich@example.com', phone: '255 746 353 456' },
         ];
+
         setTeamMembers(mockTeam);
         setFilteredMembers(mockTeam);
     }, []);

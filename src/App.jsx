@@ -1,7 +1,6 @@
-?.ximport React from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Register from './pages/Register';
 import AdminLayout from './components/Admin/AdminLayout.jsx';
 import DashboardHome from './components/Admin/DashboardHome.jsx';
 import Departments from './components/Admin/Departments.jsx';
@@ -23,7 +22,6 @@ function App() {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route index element={<DashboardHome />} />
                     <Route path="employees" element={<Employees />} />
@@ -37,7 +35,7 @@ function App() {
                     <Route path="payinfo" element={<PayInfo />} />
                     <Route path="teampage" element={<TeamPage />} />
                     <Route path="taskpage" element={<TasksPage />} />
-                    <Route path="settings" element={<Settings />} />
+                    <Route path="setting" element={<Settings />} />
                     <Route path="logout" element={<Logout />} />
                 </Route>
             </Routes>

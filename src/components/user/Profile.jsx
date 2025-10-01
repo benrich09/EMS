@@ -4,24 +4,24 @@ import { motion } from 'framer-motion';
 
 export default function Profile() {
     const [profile, setProfile] = useState({
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Ben rich',
+        email: 'benrich@gmail.com',
         position: 'Software Engineer',
         department: 'Engineering',
-        phone: '',
-        address: '',
+        phone: '255 746 795 020',
+        address: 'Dar es Salaam',
         photo: null,
     });
 
     useEffect(() => {
         // Mock fetch
         setProfile({
-            name: 'John Doe',
-            email: 'john.doe@example.com',
+            name: 'Ben rich',
+            email: 'benrich@gmail.com',
             position: 'Software Engineer',
             department: 'Engineering',
-            phone: '123-456-7890',
-            address: '123 Main St',
+            phone: '255 746 795 020',
+            address: 'Dar es Salaam',
             photo: null,
         });
     }, []);
@@ -52,22 +52,36 @@ export default function Profile() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Profile</h1>
+            <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+                Profile
+            </h1>
+
             <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+
                 <div className="flex justify-center mb-6">
+
                     <div className="relative">
+
                         <img
-                            src={profile.photo || 'https://via.placeholder.com/150'}
+                            src={profile.photo || ''}
                             alt="Profile"
                             className="h-32 w-32 rounded-full object-cover"
                         />
+
                         <label className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full cursor-pointer">
+
                             <Upload className="h-4 w-4 text-white" />
+
                             <input type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
+
                         </label>
+
+
                     </div>
                 </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
                     <div>
                         <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Name</label>
                         <input
@@ -78,6 +92,7 @@ export default function Profile() {
                             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                         />
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Email</label>
                         <input
@@ -88,6 +103,7 @@ export default function Profile() {
                             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                         />
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Position</label>
                         <input
@@ -98,6 +114,7 @@ export default function Profile() {
                             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                         />
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Department</label>
                         <input
@@ -108,6 +125,7 @@ export default function Profile() {
                             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                         />
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Phone</label>
                         <input
@@ -118,6 +136,7 @@ export default function Profile() {
                             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                         />
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Address</label>
                         <input
@@ -128,10 +147,13 @@ export default function Profile() {
                             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                         />
                     </div>
+
                 </div>
+
                 <button type="submit" className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg">
                     Save Changes
                 </button>
+
             </form>
         </motion.div>
     );
