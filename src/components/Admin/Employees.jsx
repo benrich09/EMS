@@ -112,7 +112,7 @@ export default function Employees() {
     };
 
     if (loading) {
-        return <div className="text-center py-12">Loading...</div>;
+        return <div className="text-center py-12">Loading......</div>;
     }
 
     if (error) {
