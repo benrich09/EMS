@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Outlet, Link, useLocation, useNavigate} from 'react-router-dom';
 import { Home, Building, Banknote, Check, LogOut, Moon, Sun, UserRound } from 'lucide-react';
+import { ThemeToggle } from '../ThemeToggle';
 
 export default function AdminLayout() {
     const location = useLocation();
@@ -37,14 +38,14 @@ export default function AdminLayout() {
 
                 <div className="flex items-center space-x-6">
 
-
+                    <ThemeToggle/>
 
                     <button
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 transition-colors duration-200 shadow-md"
                         aria-label="Logout"
                     >
-
+                        
                         <LogOut className="h-5 w-5 mr-2" />
                         <span>Logout</span>
 
