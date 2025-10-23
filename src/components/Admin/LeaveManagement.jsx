@@ -99,14 +99,14 @@ function LeaveManagement() {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="min-h-screen bg-gray-900 text-gray-100"
+            className="space-y-6"
         >
             <div className="container mx-auto py-12 px-4">
                 <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-3xl font-bold">Leave Management Admin</h1>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Leave Management Admin</h1>
                     <button
                         onClick={handleAdd}
-                        className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition shadow-md"
+                        className="flex items-center bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition shadow-md"
                     >
                         <PlusCircle className="h-5 w-5 mr-2" /> Add Leave
                     </button>
@@ -120,56 +120,56 @@ function LeaveManagement() {
                             placeholder="Search by employee..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full p-2 pl-10 border rounded-lg bg-gray-800 text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400"
                         />
-                        <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                        <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400 dark:text-gray-500" />
                     </div>
                 </div>
 
                 {/* Leave Table */}
                 <div className="overflow-x-auto shadow-lg rounded-lg">
-                    <table className="min-w-full bg-gray-800 border border-gray-700 divide-y divide-gray-600">
-                        <thead className="bg-gray-700">
+                    <table className="min-w-full border border-gray-300 dark:border-gray-600 divide-y divide-gray-200 dark:divide-gray-600">
+                        <thead className="bg-gray-50 dark:bg-gray-800">
                         <tr>
-                            <th className="py-3 px-6 text-left font-semibold">Employee</th>
-                            <th className="py-3 px-6 text-left font-semibold">Type</th>
-                            <th className="py-3 px-6 text-left font-semibold">Start Date</th>
-                            <th className="py-3 px-6 text-left font-semibold">End Date</th>
-                            <th className="py-3 px-6 text-left font-semibold">Status</th>
-                            <th className="py-3 px-6 text-left font-semibold">Actions</th>
+                            <th className="py-3 px-6 text-left font-semibold text-gray-900 dark:text-white">Employee</th>
+                            <th className="py-3 px-6 text-left font-semibold text-gray-900 dark:text-white">Type</th>
+                            <th className="py-3 px-6 text-left font-semibold text-gray-900 dark:text-white">Start Date</th>
+                            <th className="py-3 px-6 text-left font-semibold text-gray-900 dark:text-white">End Date</th>
+                            <th className="py-3 px-6 text-left font-semibold text-gray-900 dark:text-white">Status</th>
+                            <th className="py-3 px-6 text-left font-semibold text-gray-900 dark:text-white">Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
                         {filteredLeaves.map((leave) => (
                             <motion.tr
                                 key={leave.id}
-                                className="hover:bg-gray-700 transition"
+                                className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                             >
-                                <td className="py-3 px-6 text-gray-300">{leave.employee}</td>
-                                <td className="py-3 px-6 text-gray-300">{leave.type}</td>
-                                <td className="py-3 px-6 text-gray-300">{leave.start}</td>
-                                <td className="py-3 px-6 text-gray-300">{leave.end}</td>
-                                <td className="py-3 px-6 text-gray-300 flex items-center">
+                                <td className="py-3 px-6 text-gray-900 dark:text-gray-300">{leave.employee}</td>
+                                <td className="py-3 px-6 text-gray-900 dark:text-gray-300">{leave.type}</td>
+                                <td className="py-3 px-6 text-gray-900 dark:text-gray-300">{leave.start}</td>
+                                <td className="py-3 px-6 text-gray-900 dark:text-gray-300">{leave.end}</td>
+                                <td className="py-3 px-6 text-gray-900 dark:text-gray-300 flex items-center">
                                     {leave.status === 'Approved' && <CheckCircle className="text-green-500 h-5 w-5 mr-2" />}
                                     {leave.status === 'Rejected' && <XCircle className="text-red-500 h-5 w-5 mr-2" />}
                                     {leave.status === 'Pending' && <Clock className="text-yellow-500 h-5 w-5 mr-2" />}
-                                    {leave.status}
+                                    <span className="capitalize">{leave.status}</span>
                                 </td>
                                 <td className="py-3 px-6">
                                     {leave.status === 'Pending' && (
                                         <>
                                             <button
                                                 onClick={() => handleApprove(leave.id)}
-                                                className="text-green-500 hover:text-green-400 mr-3"
+                                                className="text-green-500 hover:text-green-400 dark:text-green-400 dark:hover:text-green-300 mr-3"
                                                 title="Approve"
                                             >
                                                 <CheckCircle className="h-5 w-5" />
                                             </button>
                                             <button
                                                 onClick={() => handleReject(leave.id)}
-                                                className="text-red-500 hover:text-red-400 mr-3"
+                                                className="text-red-500 hover:text-red-400 dark:text-red-400 dark:hover:text-red-300 mr-3"
                                                 title="Reject"
                                             >
                                                 <XCircle className="h-5 w-5" />
@@ -178,14 +178,14 @@ function LeaveManagement() {
                                     )}
                                     <button
                                         onClick={() => handleEdit(leave)}
-                                        className="text-blue-500 hover:text-blue-400 mr-3"
+                                        className="text-blue-500 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300 mr-3"
                                         title="Edit"
                                     >
                                         <Edit className="h-5 w-5" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(leave.id)}
-                                        className="text-red-500 hover:text-red-400"
+                                        className="text-red-500 hover:text-red-400 dark:text-red-400 dark:hover:text-red-300"
                                         title="Delete"
                                     >
                                         <Trash2 className="h-5 w-5" />
@@ -202,34 +202,44 @@ function LeaveManagement() {
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
+                        className="fixed inset-0 bg-black bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-75 flex items-center justify-center z-50"
                     >
                         <motion.div
                             initial={{ scale: 0.95 }}
                             animate={{ scale: 1 }}
-                            className="bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-xl"
+                            className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-xl"
                         >
-                            <h2 className="text-2xl font-bold mb-4">{currentLeave ? 'Edit Leave' : 'Add Leave'}</h2>
-                            {error && <p className="text-red-500 mb-4">{error}</p>}
+                            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                                {currentLeave ? 'Edit Leave' : 'Add Leave'}
+                            </h2>
+                            {error && (
+                                <p className="text-red-500 dark:text-red-400 mb-4 bg-red-50 dark:bg-red-900/20 p-2 rounded">
+                                    {error}
+                                </p>
+                            )}
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
-                                    <label className="block text-gray-300 font-semibold mb-1">Employee</label>
+                                    <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-1">
+                                        Employee
+                                    </label>
                                     <input
                                         type="text"
                                         name="employee"
                                         value={formData.employee}
                                         onChange={handleInputChange}
-                                        className="w-full border border-gray-600 rounded-lg px-3 py-2 bg-gray-700 text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500"
+                                        className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400"
                                         required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-300 font-semibold mb-1">Leave Type</label>
+                                    <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-1">
+                                        Leave Type
+                                    </label>
                                     <select
                                         name="type"
                                         value={formData.type}
                                         onChange={handleInputChange}
-                                        className="w-full border border-gray-600 rounded-lg px-3 py-2 bg-gray-700 text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500"
+                                        className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400"
                                     >
                                         <option value="Vacation">Vacation</option>
                                         <option value="Sick">Sick</option>
@@ -238,24 +248,28 @@ function LeaveManagement() {
                                     </select>
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-300 font-semibold mb-1">Start Date</label>
+                                    <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-1">
+                                        Start Date
+                                    </label>
                                     <input
                                         type="date"
                                         name="start"
                                         value={formData.start}
                                         onChange={handleInputChange}
-                                        className="w-full border border-gray-600 rounded-lg px-3 py-2 bg-gray-700 text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500"
+                                        className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400"
                                         required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-300 font-semibold mb-1">End Date</label>
+                                    <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-1">
+                                        End Date
+                                    </label>
                                     <input
                                         type="date"
                                         name="end"
                                         value={formData.end}
                                         onChange={handleInputChange}
-                                        className="w-full border border-gray-600 rounded-lg px-3 py-2 bg-gray-700 text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500"
+                                        className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400"
                                         required
                                     />
                                 </div>
@@ -263,13 +277,13 @@ function LeaveManagement() {
                                     <button
                                         type="button"
                                         onClick={() => setIsModalOpen(false)}
-                                        className="px-4 py-2 bg-gray-600 rounded-lg hover:bg-gray-500 shadow-md text-gray-100"
+                                        className="px-4 py-2 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-lg shadow-md text-gray-700 dark:text-gray-100 transition"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
-                                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-md"
+                                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg shadow-md transition"
                                     >
                                         {currentLeave ? 'Update' : 'Add'}
                                     </button>

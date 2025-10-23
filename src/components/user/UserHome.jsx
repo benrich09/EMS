@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { UserRound, Calendar, Briefcase, Users, Clock, CheckCircle } from 'lucide-react';
+import { 
+    UserRound, Calendar, Briefcase, Users, Clock, CheckCircle, 
+    Plus, ArrowRight, FileText 
+} from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-{/*This is the function that used to call cards in the main content */}
-function StatCard({ icon: Icon, title, value, color = 'blue' }) {
+function StatCard({ icon: Icon, title, value, color = 'blue', path }) {
     const colorClasses = {
         blue: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
         green: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
@@ -11,122 +14,156 @@ function StatCard({ icon: Icon, title, value, color = 'blue' }) {
         orange: 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
     };
 
-    {/*This is the return of the cards*/}
     return (
         <motion.div
-            className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-200"
-            whileHover={{ scale: 1.05 }}
+            className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 border border-blue-200/50 dark:border-gray-700"
+            whileHover={{ scale: 1.02 }}
         >
-            <div className="flex items-center mb-4">
-                <div className={`${colorClasses[color]} p-3 rounded-full mr-4`}>
-                    <Icon className="h-6 w-6" />
+            <div className="flex items-center justify-between mb-3">
+                <div className={`${colorClasses[color]} p-3 rounded-full`}>
+                    <Icon className="h-5 w-5" />
                 </div>
-                <h2 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">{title}</h2>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white">{title}</h3>
             </div>
-            <p className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
+            <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
         </motion.div>
     );
 }
 
-{/*This is the function used to call all the activities in the main body*/}
+function QuickAction({ name, path, color }) {
+    return (
+        <Link
+            to={path}
+            className={`${color} text-white p-4 rounded-lg flex flex-col items-center justify-center text-sm font-semibold transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg`}
+        >
+            <ArrowRight className="h-4 w-4 mb-1" />
+            <span>{name}</span>
+        </Link>
+    );
+}
+
 function ActivityTable({ activities }) {
     return (
-        <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 mt-8 overflow-x-auto">
-            <h2 className="text-lg md:text-xl font-bold mb-4 text-gray-900 dark:text-white">Recent Activities</h2>
-            <table className="w-full table-auto min-w-[600px]">
-                <thead>
-                <tr className="bg-gray-100 dark:bg-gray-700 text-left">
-                    <th className="p-3 text-gray-900 dark:text-white">Date</th>
-                    <th className="p-3 text-gray-900 dark:text-white">Action</th>
-                    <th className="p-3 text-gray-900 dark:text-white">Details</th>
-                </tr>
-                </thead>
-                <tbody>
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-md border border-blue-200/50 dark:border-gray-700">
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center">
+                <FileText className="h-5 w-5 mr-2" /> Recent Activities
+            </h2>
+            <div className="space-y-3">
                 {activities.map((activity, index) => (
-                    <motion.tr
+                    <motion.div
                         key={index}
-                        className="border-t hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-800 rounded-lg text-sm text-gray-700 dark:text-gray-300"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
                     >
-                        <td className="p-3 text-gray-700 dark:text-gray-300">{activity.date}</td>
-                        <td className="p-3 text-gray-700 dark:text-gray-300">{activity.action}</td>
-                        <td className="p-3 text-gray-700 dark:text-gray-300">{activity.details}</td>
-                    </motion.tr>
+                        <div className="flex items-center space-x-3">
+                            <CheckCircle className="h-4 w-4 text-blue-500" />
+                            <span>{activity}</span>
+                        </div>
+                    </motion.div>
                 ))}
-                </tbody>
-            </table>
+            </div>
         </div>
     );
 }
 
 export default function UserHome() {
-
-    {/*This is the declaration of variable of the cards in the main content*/}
-    const [userStats, setUserStats] = useState({
-        leavesTaken: 5,
-        leavesRemaining: 15,
-        nextPayDate: 'October 15, 2025',
-        totalHoursWorked: 160,
-        pendingTasks: 3,
-        teamMembers: 12,
-    });
+    const [userStats, setUserStats] = useState({});
     const [activities, setActivities] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchStats = async () => {
-            const data = {
+        setTimeout(() => {
+            setUserStats({
                 leavesTaken: 5,
                 leavesRemaining: 15,
-                nextPayDate: 'October 15, 2025',
-                totalHoursWorked: 160,
+                nextPayDate: 'Oct 15, 2025',
+                totalHoursWorked: '160',
                 pendingTasks: 3,
                 teamMembers: 12,
-            };
-            setUserStats(data);
-        };
-
-        {/*This is activity declared variable*/}
-        const fetchActivities = async () => {
-            const data = [
-                { date: '2025-08-30', action: 'Leave Approved', details: 'Vacation leave from 2025-09-01 to 2025-09-03' },
-                { date: '2025-08-28', action: 'Task Completed', details: 'Finished quarterly report' },
-                { date: '2025-08-25', action: 'Meeting Attended', details: 'Team sync-up' },
-            ];
-            setActivities(data);
-        };
-
-        fetchStats();
-        fetchActivities();
+            });
+            
+            setActivities([
+                'Leave approved for 3 days vacation',
+                'August payroll processed - $5,250',
+                'Completed quarterly performance review',
+                'Team meeting scheduled for tomorrow',
+                'New task assigned: Website redesign',
+            ]);
+            setLoading(false);
+        }, 800);
     }, []);
 
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
+
     return (
-        //This is the motion div for the Management system
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-
-            <h1 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900 dark:text-white">
-                Dashboard
-            </h1>
-
-            {/*To call cards from the function and the declared variable*/}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <StatCard icon={CheckCircle} title="Leaves Taken" value={userStats.leavesTaken} color="blue" />
-                <StatCard icon={CheckCircle} title="Leaves Remaining" value={userStats.leavesRemaining} color="green" />
-                <StatCard icon={Calendar} title="Next Pay Date" value={userStats.nextPayDate} color="purple" />
-                <StatCard icon={Clock} title="Hours Worked This Month" value={userStats.totalHoursWorked} color="orange" />
-                <StatCard icon={Briefcase} title="Pending Tasks" value={userStats.pendingTasks} color="blue" />
-                <StatCard icon={Users} title="Team Members" value={userStats.teamMembers} color="green" />
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+        >
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <StatCard 
+                    icon={CheckCircle} 
+                    title="Leaves Taken" 
+                    value={userStats.leavesTaken} 
+                    color="blue" 
+                />
+                <StatCard 
+                    icon={CheckCircle} 
+                    title="Leaves Remaining" 
+                    value={userStats.leavesRemaining} 
+                    color="green" 
+                />
+                <StatCard 
+                    icon={Calendar} 
+                    title="Next Pay" 
+                    value={userStats.nextPayDate} 
+                    color="purple" 
+                />
+                <StatCard 
+                    icon={Clock} 
+                    title="Hours Worked" 
+                    value={userStats.totalHoursWorked} 
+                    color="orange" 
+                />
+                <StatCard 
+                    icon={Briefcase} 
+                    title="Pending Tasks" 
+                    value={userStats.pendingTasks} 
+                    color="blue" 
+                />
+                <StatCard 
+                    icon={Users} 
+                    title="Team Members" 
+                    value={userStats.teamMembers} 
+                    color="green" 
+                />
             </div>
 
-            {/*This call function activity and declared variable*/}
+            {/* Quick Actions */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-md border border-blue-200/50 dark:border-gray-700">
+                <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center">
+                    <Plus className="h-5 w-5 mr-2 text-blue-600" /> Quick Actions
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <QuickAction name="Request Leave" path="/dashboard/leaves" color="bg-blue-500 hover:bg-blue-600" />
+                    <QuickAction name="View Payslip" path="/dashboard/payinfo" color="bg-green-500 hover:bg-green-600" />
+                    <QuickAction name="My Tasks" path="/dashboard/taskpage" color="bg-yellow-500 hover:bg-yellow-600" />
+                    <QuickAction name="Team Chat" path="/dashboard/teampage" color="bg-purple-500 hover:bg-purple-600" />
+                </div>
+            </div>
+
+            {/* Recent Activities */}
             <ActivityTable activities={activities} />
-
-            <div className="mt-8">
-                <button className="bg-blue-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg">
-                    Request Leave
-                </button>
-            </div>
         </motion.div>
     );
 }

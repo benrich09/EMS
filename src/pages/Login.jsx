@@ -12,48 +12,126 @@ export default function Login() {
       navigate('/admin');
     } else if (email === 'user@example.com' && password === 'user') {
       navigate('/dashboard');
-    }else {
-      alert('invalid details')
+    } else {
+      alert('Invalid details');
     }
   };
 
   return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-emerald-50 p-4">
-        <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-500 hover:scale-105">
-          <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Employees Management System
-          </h1>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-6">
-              <label className="block text-gray-700 mb-2 text-sm font-medium">Email Address</label>
-              <input
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-50 p-4 relative overflow-hidden">
+      {/* Sparkles Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-4 left-4 w-1 h-1 bg-white/80 rounded-full animate-ping"></div>
+        <div className="absolute top-20 right-8 w-1 h-1 bg-white/70 rounded-full animate-ping [animation-delay:0.5s]"></div>
+        <div className="absolute bottom-24 left-12 w-1 h-1 bg-white/60 rounded-full animate-ping [animation-delay:1s]"></div>
+        <div className="absolute top-48 right-16 w-1 h-1 bg-white/50 rounded-full animate-ping [animation-delay:1.5s]"></div>
+        <div className="absolute bottom-8 right-20 w-1 h-1 bg-white/40 rounded-full animate-ping [animation-delay:0.8s]"></div>
+      </div>
+
+      {/* Floating Blue Particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-0.5 h-0.5 bg-blue-300/40 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main Card */}
+      <div className="relative z-10 w-full max-w-md">
+        <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden transform transition-all duration-700 hover:scale-105 sm:hover:scale-[1.02]">
+          
+          {/* Logo/Icon */}
+          <div className="text-center p-6 sm:p-8">
+            <div className="inline-flex p-3 sm:p-4 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl mb-4 shadow-lg">
+              <svg className="w-8 h-8 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 bg-clip-text text-transparent">
+              Employee Portal
+            </h1>
+            <p className="text-blue-500 text-sm sm:text-lg font-medium">Welcome Back</p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="px-6 sm:px-10 pb-8 space-y-6">
+            {/* Email Field */}
+            <div>
+              <label className="block text-gray-700 mb-2 text-xs sm:text-sm font-semibold uppercase tracking-wide">
+                Email Address
+              </label>
+              <div className="relative">
+                <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 transition-all duration-300"
+                  className="w-full pl-10 pr-4 py-3.5 sm:py-4 border-2 border-blue-100 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 bg-gradient-to-r from-blue-50 to-indigo-50 transition-all duration-300 text-base sm:text-lg placeholder-blue-400"
                   placeholder="Enter your email"
                   required
-              />
+                />
+                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-blue-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
             </div>
-            <div className="mb-8">
-              <label className="block text-gray-700 mb-2 text-sm font-medium">Password</label>
-              <input
+
+            {/* Password Field */}
+            <div>
+              <label className="block text-gray-700 mb-2 text-xs sm:text-sm font-semibold uppercase tracking-wide">
+                Password
+              </label>
+              <div className="relative">
+                <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 transition-all duration-300"
+                  className="w-full pl-10 pr-4 py-3.5 sm:py-4 border-2 border-blue-100 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 bg-gradient-to-r from-blue-50 to-indigo-50 transition-all duration-300 text-base sm:text-lg placeholder-blue-400"
                   placeholder="Enter your password"
                   required
-              />
+                />
+                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-blue-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
             </div>
+
+            {/* Sign In Button */}
             <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white p-3 rounded-lg hover:from-indigo-600 hover:via-purple-700 hover:to-pink-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 text-white py-3.5 sm:py-5 px-6 sm:px-8 rounded-xl hover:from-blue-700 hover:via-indigo-700 hover:to-cyan-700 transition-all duration-300 font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 relative overflow-hidden group"
             >
-              Sign In
+              <span className="relative z-10">Sign In</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
           </form>
+
+          {/* Footer */}
+          <div className="px-6 sm:px-10 pb-6 pt-4 border-t border-blue-100 text-center">
+            <p className="text-xs sm:text-sm text-gray-500">
+              © 2025 Employee Management System. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
+
+      <style>
+        {`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+          }
+          .animate-float {
+            animation: float 3s ease-in-out infinite;
+          }
+        `}
+      </style>
+    </div>
   );
 }

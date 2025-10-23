@@ -1,71 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Search, Mail, Phone } from 'lucide-react';
+import { Users, Mail, Phone, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function TeamPage() {
     const [teamMembers, setTeamMembers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredMembers, setFilteredMembers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Sample data but it should fetch from the database
-        const mockTeam = [
-            { id: 1, name: 'Ben Rich', role: 'Backend Developer', email: 'ben@example.com', phone: '255 634 343 566' },
-            { id: 2, name: 'Rich Ben', role: 'Data Analyst', email: 'rich@example.com', phone: '255 746 353 456' },
-            { id: 3, name: 'Ben Phil', role: 'Frontend Developer', email: 'benphil@example.com', phone: '255 746 353 456' },
-            { id: 4, name: 'Phil ben', role: 'Software Developer', email: 'philben@example.com', phone: '255 746 353 456' },
-            { id: 5, name: 'Rich Phil', role: 'System Admin', email: 'richphil@example.com', phone: '255 746 353 456' },
-            { id: 6, name: 'Phil Rich', role: 'Database Manager', email: 'philrich@example.com', phone: '255 746 353 456' },
-        ];
-
-        setTeamMembers(mockTeam);
-        setFilteredMembers(mockTeam);
+        setTimeout(() => {
+            setTeamMembers([
+                { id: 1, name: 'Jane Smith', role: 'Senior Developer', email: 'jane@company.com', phone: '+255 123 456 789' },
+                { id: 2, name: 'Mike Johnson', role: 'Product Manager', email: 'mike@company.com', phone: '+255 987 654 321' },
+                { id: 3, name: 'Sarah Wilson', role: 'Designer', email: 'sarah@company.com', phone: '+255 456 789 123' },
+            ]);
+            setLoading(false);
+        }, 800);
     }, []);
 
-    useEffect(() => {
-        const filtered = teamMembers.filter(member =>
-            member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            member.role.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredMembers = teamMembers.filter(member =>
+        member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        member.role.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
         );
-        setFilteredMembers(filtered);
-    }, [searchTerm, teamMembers]);
+    }
 
     return (
-        <motion.div
+        <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            className="space-y-6"
         >
-            <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Team</h1>
-            <div className="mb-6">
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Team</h1>
                 <div className="relative max-w-md">
                     <input
                         type="text"
                         placeholder="Search team members..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full p-2 pl-10 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm"
+                        className="w-full pl-10 pr-4 py-2 border rounded-lg dark:bg-gray-700 dark:text-white"
                     />
                     <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredMembers.map(member => (
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {filteredMembers.map((member) => (
                     <motion.div
                         key={member.id}
-                        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition"
-                        whileHover={{ scale: 1.05 }}
+                        className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border border-blue-200/50 dark:border-gray-700"
+                        whileHover={{ scale: 1.02 }}
                     >
-                        <div className="flex items-center mb-4">
-                            <Users className="h-8 w-8 text-blue-500 mr-4" />
+                        <div className="flex items-center mb-3">
+                            <Users className="h-8 w-8 text-blue-500 mr-3" />
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name}</h3>
                         </div>
-                        <p className="text-gray-700 dark:text-gray-300 mb-2">Role: {member.role}</p>
-                        <div className="flex items-center text-gray-700 dark:text-gray-300 mb-2">
-                            <Mail className="h-5 w-5 mr-2" /> {member.email}
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Role: <span className="font-medium">{member.role}</span></p>
+                        <div className="flex items-center text-sm text-gray-700 dark:text-gray-300 mb-2">
+                            <Mail className="h-4 w-4 mr-2" /> {member.email}
                         </div>
-                        <div className="flex items-center text-gray-700 dark:text-gray-300">
-                            <Phone className="h-5 w-5 mr-2" /> {member.phone}
+                        <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
+                            <Phone className="h-4 w-4 mr-2" /> {member.phone}
                         </div>
                     </motion.div>
                 ))}

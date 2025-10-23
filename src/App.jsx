@@ -15,6 +15,7 @@ import TeamPage from './components/user/TeamPage.jsx';
 import TasksPage from './components/user/TasksPage.jsx';
 import Logout from './components/user/Logout.jsx';
 import Settings from "./components/user/Settings.jsx";
+import UserLeaves from './components/user/Leaves.jsx';
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                     <Route path="payinfo" element={<PayInfo />} />
                     <Route path="teampage" element={<TeamPage />} />
                     <Route path="taskpage" element={<TasksPage />} />
+                    <Route path="leaves" element={<UserLeaves />} />
                     <Route path="setting" element={<Settings />} />
                     <Route path="logout" element={<Logout />} />
                 </Route>
