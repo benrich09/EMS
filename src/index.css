@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Blue Sparkles Animation */
+.sparkles-container {
+  z-index: 0;
+}
+
+.spark {
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+}
