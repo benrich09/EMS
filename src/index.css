@@ -9,3 +9,5 @@
 .spark {
   box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
 }
+/* Desktop-first application: keep the desktop layout on all screens */
+html, body { min-width: 1024px; overflow-x: auto; }
